@@ -1,0 +1,30 @@
+#rside table {
+    border-collapse:collapse;
+    border:none;
+    margin-bottom: 20px;
+    width: 300px;
+}
+
+#rside table tr {
+    height:30px;
+}
+
+#rside table td:nth-child(1) {
+    width: 40px;
+}
+
+#rside table td:nth-child(2){
+    width: 40px;
+}
+
+#rside table td:nth-child(3) {
+    width: 40px;
+}
+
+#rside table td:nth-child(4) {
+    width: 40px;
+}
+
+#rside table td { 
+    border-bottom:2px solid black; 
+}

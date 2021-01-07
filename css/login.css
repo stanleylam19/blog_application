@@ -1,0 +1,60 @@
+header {
+    width: 100%;
+    height: 120px;
+    background: white;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+header h1 {
+    text-align: center;
+    line-height: 75px;
+    margin-left: 50px;
+    font-size: 35px;
+}
+
+body {
+    background: rgb(227, 227, 227);
+    height: 100%;
+}
+
+#main {
+    width: 100%;
+    height: 300px;
+    display: block;
+}
+
+#main form {
+    width: 500px;
+    height: 200px;
+    background: white;
+    position: relative;
+    left: 0; top: 180px; rightright: 0; bottombottom: 0;  
+    margin: auto;
+}
+
+#main input {
+    position: relative;
+    top:50px;
+    left: 100px;
+    width: 300px;
+}
+
+#main button {
+    position: relative;
+    top: 30px;
+    left: 230px;
+}
+
+footer {
+    display: block;
+    background: black;
+    color: white;
+    margin-top: 150px;
+    height: 50px;
+    line-height: 50px;
+    text-align: center;
+    font-size: large;
+    width: 100%;
+}
