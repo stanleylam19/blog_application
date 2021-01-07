@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+<link rel="stylesheet" href="./css/background_management.css">
+<link rel="stylesheet" href="./css/artListTable.css">
+</head>
+<body>
+    <header>
+        <h1>Blog后台管理界面</h1>
+    </header>
+    <div id="main">
+        <div id="lside">
+            <aside>
+                <h4>文章管理</h4>
+                <ul>
+                    <li><a href="artlist.php">文章列表</a></li>
+                    <li><a href="artlist.php?showpage=add">发布文章</a></li>
+                </ul>
+            </aside>
+            <aside>
+                <h4>栏目管理</h4>
+                <ul>
+                    <li><a href="catlist.php">栏目列表</a></li>
+                    <li><a href="catlist.php?showpage=add">添加栏目</a></li>
+                </ul>
+            </aside>
+            <aside>
+                <h4>评论管理</h4>
+                <ul>
+                    <li><a href="commlist.php">评论列表</a></li>
+                </ul>
+            </aside>
+            <aside>
+                <h4>个人中心</h4>
+                <ul>
+                    <li><a href="">修改密码</a></li>
+                    <li><a href="logout.php">退出登录</a></li>
+                </ul>
+            </aside>
+        </div>
+        <?php if($showpage == 'none') {?>
+        <div id="rside">
+            <table>
+                <tr>
+                    <td>序号</td>
+                    <td>日期</td>
+                    <td>标题</td>
+                    <td>分类</td>
+                    <td>回复</td>
+                    <td>状态</td>
+                </tr>
+                <?php foreach($arts as $a) {?>
+                <tr>
+                    <td><?php echo $a['art_id'];?></td>
+                    <td><?php echo date('Y/m/d', $a['pubtime']);?></td>
+                    <td><a href="art.php?art_id=<?php echo $a['art_id'];?>"><?php echo $a['title'];?></td>
+                    <td><?php echo $a['catname'];?></td>
+                    <td><span class="badge"><?php echo $a['comm'];?></span></td>
+                    <td>
+                        <a href="artlist.php?showpage=edit&art_id=<?php echo $a['art_id'];?>">编辑</a>
+                        <a href="artdel.php?showpage=del&art_id=<?php echo $a['art_id'];?>">删除</a>
+                    </td>
+                </tr>
+                <?php }?>
+            </table>
+            <div id="pagebar">
+                Pages:&nbsp;
+                <?php foreach($page as $k=>$v) {?>
+                <?php if($k == $curr) {?>
+                <?php echo $k;} else {?>
+                <a href="artlist.php?<?php echo $v;?>"><?php echo $k;?></a>
+                <?php }?>
+                <?php }?>
+            </div>
+        </div>
+        <?php }?>
+        <?php if($showpage == 'add') {?>
+        <div id="rside">
+            <form action="" method="post" enctype="multipart/form-data">
+                <div class="form-group">
+                    <label>标题:</label>
+                    <p>
+                        <input type="text" name="title">
+                    </p>
+                </div>
+                <div class="form-group">
+                    <label>栏目:</label>
+                    <p>
+                        <select name="cat_id">
+                            <?php foreach($cats as $c) {?>
+                            <option value="<?php echo $c['cat_id'];?>"><?php echo $c['catname'];?></option>
+                            <?php }?>
+                        </select>
+                    </p>
+                </div>
+                <div class="form-group">
+                    <label>內容:</label>
+                    <p>
+                        <textarea name="content"></textarea>
+                    </p>
+                </div>
+                <div class="form-group">
+                    <label>图片:</label>
+                    <p>
+                        <input type="file" name="pic" id="">
+                    </p>
+                </div>
+                <div class="form-group">
+                    <label>标签:</label>
+                    <p>
+                        <input type="text" name="tag">
+                    </p>
+                </div>
+                <div class="form-group">
+                    <label>&nbsp;</label>
+                    <p>
+                        <button type="submit">提交</button>
+                    </p>
+                </div>
+            </form>
+        </div>
+        <?php }?>
+        <?php if($showpage == 'edit') {?>
+        <div id="rside">
+            <form action="" method="post">
+                <div class="form-group">
+                    <label>标题:</label>
+                    <p>
+                        <input type="text" name="title" value="<?php echo $art['title'];?>">
+                    </p>
+                </div>
+                <div class="form-group">
+                    <label>栏目:</label>
+                    <p>
+                        <select name="cat_id">
+                            <?php foreach($cats as $c) {?>
+                            <option value="<?php echo $c['cat_id'];?>"
+                                <?php if($c['cat_id'] == $art['cat_id']) {?>
+                                selected="selected"
+                                <?php }?>
+                                >
+                                <?php echo $c['catname'];?>
+                            </option>
+                            <?php }?>
+                        </select>
+                    </p>
+                </div>
+                <div class="form-group">
+                    <label>內容:</label>
+                    <p>
+                        <textarea name="content"><?php echo $art['content']?></textarea>
+                    </p>
+                </div>
+                <div class="form-group">
+                    <label>标签:</label>
+                    <p>
+                        <input type="text" name="tag" value="<?php echo $art['arttag'];?>" />
+                    </p>
+                </div>
+                <div class="form-group">
+                    <label>&nbsp;</label>
+                    <p>
+                        <button type="submit">提交</button>
+                    </p>
+                </div>
+            </form>
+        </div>
+        <?php }?>
+        <?php if($result == 'succ') {?>
+            <div class="succ"><?php echo $res;?></div>
+        <?php } else if($result == 'fail') {?>
+            <div class="danger"><?php echo $res;?></div>
+        <?php }?>
+        <div id="clear"></div>
+    </div>
+    <footer>
+        Copyright &copy; 2015
+    </footer>
+</body>
+</html>

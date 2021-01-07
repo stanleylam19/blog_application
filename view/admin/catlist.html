@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+<link rel="stylesheet" href="./css/background_management.css">
+<link rel="stylesheet" href="./css/catListTable.css">
+</head>
+<body>
+    <header>
+        <h1>Blog后台管理界面</h1>
+    </header>
+    <div id="main">
+        <div id="lside">
+            <aside>
+                <h4>文章管理</h4>
+                <ul>
+                    <li><a href="artlist.php">文章列表</a></li>
+                    <li><a href="artlist.php?showpage=add">发布文章</a></li>
+                </ul>
+            </aside>
+            <aside>
+                <h4>栏目管理</h4>
+                <ul>
+                    <li><a href="catlist.php">栏目列表</a></li>
+                    <li><a href="catlist.php?showpage=add">添加栏目</a></li>
+                </ul>
+            </aside>
+            <aside>
+                <h4>评论管理</h4>
+                <ul>
+                    <li><a href="commlist.php">评论列表</a></li>
+                </ul>
+            </aside>
+            <aside>
+                <h4>个人中心</h4>
+                <ul>
+                    <li><a href="">修改密码</a></li>
+                    <li><a href="logout.php">退出登陆</a></li>
+                </ul>
+            </aside>
+        </div>
+        <?php if($showpage == 'none') {?>
+        <div id="rside">
+            <table>
+                <tr>
+                    <td>序号</td>
+                    <td>栏目名称</td>
+                    <td>数量</td>
+                    <td>操作</td>
+                </tr>
+                <?php foreach($cat as $c) {?>
+                <tr>
+                    <td><?php echo $c['cat_id'];?></td>
+                    <td><?php echo $c['catname'];?></td>
+                    <td><span class="badge"><?php echo $c['num'];?></span></td>
+                    <td>
+                        <a href="catlist.php?showpage=edit&cat_id=<?php echo $c['cat_id'];?>">编辑</a>
+                        <a href="catlist.php?showpage=del&cat_id=<?php echo $c['cat_id'];?>">删除</a>
+                    </td>
+                </tr>
+                <?php }?>
+            </table>
+        </div>
+        <?php }?>
+        <?php if($showpage == 'add') {?>
+        <div id="rside">
+            <form action="" method="post">
+                <div class="form-group">
+                    <label>栏目名称:</label>
+                    <p>
+                        <input type="text" name="catname">
+                    </p>
+                </div>
+                <div class="form-group">
+                    <label>&nbsp;</label>
+                    <p>
+                        <button type="submit">提交</button>
+                    </p>
+                </div>
+            </form>
+        </div>
+        <?php }?>
+        <?php if($showpage == 'edit') {?>
+        <div id="rside">
+            <form action="" method="post">
+                <div class="form-group">
+                    <label>栏目名称:</label>
+                    <p>
+                        <input type="text" name="catname" value="<?php echo $cat['catname'];?>">
+                    </p>
+                </div>
+                <div class="form-group">
+                    <label>&nbsp;</label>
+                    <p>
+                        <button type="submit">提交</button>
+                    </p>
+                </div>
+            </form>
+        </div>
+        <?php }?>
+        <?php if($result == 'succ') {?>
+            <div class="succ"><?php echo $res;?></div>
+        <?php } else if($result == 'fail') {?>
+            <div class="danger"><?php echo $res;?></div>
+            <?php echo 'b'?>
+        <?php }?>
+        <div id="clear"></div>
+    </div>
+    <footer>
+        Copyright &copy; 2015
+    </footer>
+</body>
+</html>

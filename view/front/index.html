@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+<link rel="stylesheet" href="./css/front_page.css">
+</head>
+<body>
+    <header>
+        <h1>本人的Blog</h1>
+        <h4>乘风行，无惧</h4>
+    </header>
+    <nav>
+        <ul>
+            <li><a href="">导航1</a></li>
+            <li><a href="">导航2</a></li>
+            <li><a href="">导航3</a></li>
+            <li><a href="">导航4</a></li>
+        </ul>
+    </nav>
+    <div id="main">
+        <div id="lside">
+            <?php foreach($arts as $a) {?>
+            <article>
+                <h2><a href="art.php?art_id=<?php echo $a['art_id'];?>"><?php echo $a['title'];?></a></h2>
+                <div class="entry_header">
+                    <time><?php echo date('Y/m/d', $a['pubtime']);?></time>
+                    by
+                    <label>本人<label>
+                    <a class="catlink" href="#"><?php echo $a['catname'];?></a>
+                    <a class="comment" href="#"><?php echo $a['comm'];?>条评论</a>
+                </div>
+                <?php if($a['thumb']) {?>
+                <img src="<?php echo '.' . $a['thumb'];?>" alt="">
+                <?php }?>
+                <div class="entry_content">
+                    <?php echo $a['content'];?>
+                </div>
+            </article>
+            <?php }?>
+            <?php if($num > 0) {?>
+            <div id="pagebar">
+                Pages:&nbsp;
+                <?php foreach($page as $k=>$v) {?>
+                <?php if($k == $curr) {?>
+                <?php echo $k;} else {?>
+                <a href="index.php?<?php echo $v;?>"><?php echo $k;?></a>
+                <?php }?>
+                <?php }?>
+            </div>
+            <?php }?>
+        </div>
+        <div id="rside">
+            <aside>
+                <h4>栏目列表</h4>
+                <ul>
+                    <li><a href="index.php">全部</a></li>
+                    <?php foreach($cats as $c) {?>
+                    <li><a href="index.php?cat_id=<?php echo $c['cat_id'];?>"><?php echo $c['catname'];?></a></li>
+                    <?php }?>
+                </ul>
+            </aside>
+            <aside>
+                <h4>标题列表</h4>
+                <ul>
+                    <?php foreach($arts as $a) {?>
+                    <li><a href="art.php?art_id=<?php echo $a['art_id'];?>"><?php echo $a['title'];?></a>&nbsp;(1)</li>
+                    <?php }?>
+                </ul>
+            </aside>
+        </div>
+        <div id="clear"></div>
+    </div>
+    <footer>
+        Copyright &copy; 2015
+    </footer>
+</body>
+</html>
